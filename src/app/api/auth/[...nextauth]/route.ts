@@ -11,7 +11,22 @@ const authHandler = NextAuth({
             },
             async authorize(credentials, req) {
                 try {
-                    return null
+                    const response = await
+                        fetch(`${process.env.NEXTAUTH_URL}/api/login`, {
+                            method: "POST",
+                            headers: {
+                                "Accept": "application/json",
+
+                            },
+                            body: JSON.stringify(credentials),
+
+                        })
+                    const json: any = response.json();
+                    if (response.status == 200) {
+                        return json.result;
+                    }else{
+                        throw (JSON.stringify(json))
+                    }
                 } catch (error) {
                     throw new Error("error");
 
