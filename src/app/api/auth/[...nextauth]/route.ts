@@ -40,7 +40,26 @@ const authHandler = NextAuth({
         })
     ],
     pages: {
-        signIn: "/login"
+        signIn: "/login",
+
+    },
+    callbacks: {
+
+        async jwt({ token, user }) {
+            if (user) {
+                token.accessToken = user.accessToken
+                token.email = user.email
+            }
+            return token
+        },
+        async session({ session, token, user }) {
+            if (token && session.user) {
+
+                session.user.accessToken = token.accessToken
+            }
+            return session;
+
+        }
     }
 })
 
