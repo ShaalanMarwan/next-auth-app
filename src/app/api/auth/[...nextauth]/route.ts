@@ -10,6 +10,14 @@ const authHandler = NextAuth({
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
+            /**
+             * Authorizes the user with the given credentials.
+             * @param {Object} credentials - The user's login credentials.
+             * @param {string} credentials.email - The user's email address.
+             * @param {string} credentials.password - The user's password.
+             * @returns {Promise<any>} - A promise that resolves to the result of the authorization.
+             * @throws {Error} - If there is an error during the authorization process.
+             */
             async authorize(credentials) {
                 try {
                     const response = await
